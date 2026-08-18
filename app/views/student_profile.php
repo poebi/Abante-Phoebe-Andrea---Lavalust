@@ -23,35 +23,41 @@
                 radial-gradient(circle at 12% 88%, #dff7df 0 4%, transparent 5%),
                 radial-gradient(circle at 90% 85%, #ffdce5 0 3%, transparent 4%),
                 linear-gradient(135deg, #fffdf0, #fff7c9, #fffbea);
+
+            background-attachment: fixed;
         }
 
+        /* Full-screen layout */
         .container {
-            width: 90%;
-            max-width: 850px;
-            margin: 65px auto;
+            width: 100%;
+            min-height: 100vh;
+            margin: 0;
+            padding: 70px 8%;
+            display: flex;
+            align-items: center;
         }
 
+        /* No large frame */
         .profile-card {
             position: relative;
+            width: 100%;
+            min-height: calc(100vh - 140px);
+            padding: 40px 5%;
             overflow: hidden;
 
-            background: rgba(255, 255, 255, 0.94);
-            padding: 48px;
-
-            border-radius: 24px;
-            border: 1px solid #eadb9b;
-
-            box-shadow:
-                0 15px 40px rgba(174, 145, 58, 0.12),
-                0 0 30px rgba(255, 235, 140, 0.25);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
         }
 
+        /* Decorative yellow circle */
         .profile-card::before {
             content: "";
             position: absolute;
 
-            width: 180px;
-            height: 180px;
+            width: 260px;
+            height: 260px;
 
             top: -100px;
             right: -70px;
@@ -59,32 +65,41 @@
             background: #fff2a6;
             border-radius: 50%;
 
-            opacity: 0.45;
-            filter: blur(5px);
+            opacity: 0.35;
+            filter: blur(8px);
+
+            z-index: 0;
         }
 
+        /* Decorative purple circle */
         .profile-card::after {
             content: "";
             position: absolute;
 
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
 
-            bottom: -70px;
-            left: -50px;
+            bottom: -90px;
+            left: -60px;
 
             background: #ead7ff;
             border-radius: 50%;
 
-            opacity: 0.35;
-            filter: blur(8px);
+            opacity: 0.3;
+            filter: blur(10px);
+
+            z-index: 0;
         }
 
         .content {
             position: relative;
             z-index: 2;
+
+            max-width: 1100px;
+            margin: auto;
         }
 
+        /* Fairy decoration */
         .fairy-line {
             display: flex;
             align-items: center;
@@ -109,12 +124,14 @@
         .fairy-line span:nth-child(2) {
             width: 5px;
             height: 5px;
+
             background: #cdb4e9;
         }
 
         .fairy-line span:nth-child(3) {
             width: 4px;
             height: 4px;
+
             background: #eab8c6;
         }
 
@@ -131,22 +148,29 @@
             );
         }
 
+        /* Heading */
         h1 {
             margin: 0 0 10px;
 
             color: #92701e;
-            font-size: 36px;
+
+            font-size: 48px;
             font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
+            max-width: 700px;
+
             margin: 0;
 
             color: #817765;
-            font-size: 15px;
-            line-height: 1.7;
+
+            font-size: 18px;
+            line-height: 1.8;
         }
 
+        /* Navigation */
         nav {
             display: flex;
             gap: 10px;
@@ -159,7 +183,7 @@
 
             color: #70591d;
 
-            background: #fff5c8;
+            background: rgba(255, 245, 200, 0.8);
 
             border: 1px solid #e5d184;
 
@@ -175,6 +199,7 @@
 
         nav a:hover {
             background: #ffefaa;
+
             border-color: #d6b94d;
 
             transform: translateY(-2px);
@@ -183,22 +208,44 @@
                 0 5px 12px rgba(200, 165, 60, 0.15);
         }
 
+        /* Student information */
         .info {
-            margin-top: 25px;
-            border-top: 1px solid #eee3b9;
+            max-width: 950px;
+
+            margin-top: 30px;
+
+            border-top: 1px solid #eadfb7;
+
+            background: rgba(255, 255, 255, 0.35);
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            backdrop-filter: blur(5px);
         }
 
         .row {
             display: flex;
             align-items: center;
 
-            padding: 17px 8px;
+            padding: 18px 22px;
 
             border-bottom: 1px solid #eee9d8;
+
+            transition: background 0.2s ease;
+        }
+
+        .row:hover {
+            background: rgba(255, 250, 218, 0.55);
         }
 
         .row:nth-child(2n) {
-            background: rgba(255, 250, 218, 0.28);
+            background: rgba(255, 250, 218, 0.25);
+        }
+
+        .row:nth-child(2n):hover {
+            background: rgba(255, 250, 218, 0.55);
         }
 
         .label {
@@ -216,9 +263,14 @@
             color: #5d5446;
 
             font-size: 15px;
+
+            line-height: 1.6;
         }
 
+        /* Protected information message */
         .protected {
+            max-width: 950px;
+
             margin-top: 28px;
 
             padding: 17px 20px;
@@ -226,11 +278,12 @@
             background:
                 linear-gradient(
                     135deg,
-                    #fff9d9,
-                    #fffbea
+                    rgba(255, 249, 217, 0.85),
+                    rgba(255, 251, 234, 0.85)
                 );
 
             border: 1px solid #eee0a8;
+
             border-left: 4px solid #d9bb55;
 
             border-radius: 14px;
@@ -238,9 +291,13 @@
             color: #756541;
 
             font-size: 14px;
+
             line-height: 1.6;
+
+            backdrop-filter: blur(5px);
         }
 
+        /* Footer */
         .footer {
             margin-top: 32px;
 
@@ -251,19 +308,25 @@
             font-size: 13px;
         }
 
+        /* Mobile */
         @media (max-width: 650px) {
 
             .container {
-                width: 94%;
-                margin: 35px auto;
+                padding: 35px 5%;
             }
 
             .profile-card {
-                padding: 32px 22px;
+                min-height: 100vh;
+
+                padding: 20px 0;
             }
 
             h1 {
-                font-size: 30px;
+                font-size: 34px;
+            }
+
+            .subtitle {
+                font-size: 16px;
             }
 
             nav {
@@ -276,11 +339,13 @@
 
             .row {
                 display: block;
-                padding: 16px 5px;
+
+                padding: 16px 18px;
             }
 
             .label {
                 width: 100%;
+
                 margin-bottom: 6px;
             }
         }
@@ -305,8 +370,7 @@
             <h1><?= $title; ?></h1>
 
             <p class="subtitle">
-                Collection of my academic and personal
-                information.
+                A glimpse into my journey, skills, interests, and experiences as a student.
             </p>
 
             <nav>
@@ -315,7 +379,7 @@
                 </a>
 
                 <a href="<?= site_url('student/profile'); ?>">
-                Profile
+                    Profile
                 </a>
             </nav>
 
@@ -323,6 +387,7 @@
 
                 <div class="row">
                     <div class="label">Student ID</div>
+
                     <div class="value">
                         <?= $student['student_id']; ?>
                     </div>
@@ -330,6 +395,7 @@
 
                 <div class="row">
                     <div class="label">Name</div>
+
                     <div class="value">
                         <?= $student['name']; ?>
                     </div>
@@ -337,6 +403,7 @@
 
                 <div class="row">
                     <div class="label">Course</div>
+
                     <div class="value">
                         <?= $student['course']; ?>
                     </div>
@@ -344,6 +411,7 @@
 
                 <div class="row">
                     <div class="label">Year Level</div>
+
                     <div class="value">
                         <?= $student['year']; ?>
                     </div>
@@ -351,6 +419,7 @@
 
                 <div class="row">
                     <div class="label">Section</div>
+
                     <div class="value">
                         <?= $student['section']; ?>
                     </div>
@@ -358,6 +427,7 @@
 
                 <div class="row">
                     <div class="label">Email</div>
+
                     <div class="value">
                         <?= $student['email']; ?>
                     </div>
@@ -365,15 +435,11 @@
 
                 <div class="row">
                     <div class="label">Hobbies</div>
+
                     <div class="value">
                         <?= $student['hobbies']; ?>
                     </div>
                 </div>
-
-            </div>
-
-        
-            </div>
 
             </div>
 

@@ -23,60 +23,72 @@
                 radial-gradient(circle at 15% 85%, #dff7df 0 4%, transparent 5%),
                 radial-gradient(circle at 88% 85%, #ffdce5 0 3%, transparent 4%),
                 linear-gradient(135deg, #fffdf0, #fff7c9, #fffbea);
+
+            background-attachment: fixed;
         }
 
+        /* Full-screen layout */
         .container {
-            width: 90%;
-            max-width: 850px;
-            margin: 65px auto;
+            width: 100%;
+            min-height: 100vh;
+            margin: 0;
+            padding: 70px 8%;
+            display: flex;
+            align-items: center;
         }
 
+        /* Removed the frame/card */
         .home-card {
             position: relative;
+            width: 100%;
+            min-height: calc(100vh - 140px);
+            padding: 40px 5%;
             overflow: hidden;
 
-            background: rgba(255, 255, 255, 0.92);
-            padding: 48px;
-
-            border-radius: 24px;
-            border: 1px solid #eadb9b;
-
-            box-shadow:
-                0 15px 40px rgba(174, 145, 58, 0.12),
-                0 0 30px rgba(255, 235, 140, 0.25);
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
         }
 
+        /* Decorative yellow circle */
         .home-card::before {
             content: "";
             position: absolute;
-            width: 180px;
-            height: 180px;
+            width: 260px;
+            height: 260px;
             background: #fff2a6;
             border-radius: 50%;
             top: -100px;
             right: -70px;
-            opacity: 0.45;
-            filter: blur(5px);
+            opacity: 0.35;
+            filter: blur(8px);
+            z-index: 0;
         }
 
+        /* Decorative purple circle */
         .home-card::after {
             content: "";
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             background: #ead7ff;
             border-radius: 50%;
-            bottom: -70px;
-            left: -50px;
-            opacity: 0.35;
-            filter: blur(8px);
+            bottom: -90px;
+            left: -60px;
+            opacity: 0.3;
+            filter: blur(10px);
+            z-index: 0;
         }
 
         .content {
             position: relative;
             z-index: 2;
+            max-width: 1100px;
+            margin: auto;
         }
 
+        /* Decorative fairy line */
         .fairy-line {
             display: flex;
             align-items: center;
@@ -119,19 +131,20 @@
         h1 {
             margin: 0 0 12px;
             color: #92701e;
-            font-size: 38px;
+            font-size: 48px;
             font-weight: 600;
             letter-spacing: -0.5px;
         }
 
         .subtitle {
-            max-width: 650px;
+            max-width: 700px;
             margin: 0;
             color: #817765;
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1.8;
         }
 
+        /* Navigation */
         nav {
             display: flex;
             gap: 10px;
@@ -141,7 +154,7 @@
         nav a {
             text-decoration: none;
             color: #70591d;
-            background: #fff5c8;
+            background: rgba(255, 245, 200, 0.8);
             border: 1px solid #e5d184;
             padding: 10px 20px;
             border-radius: 20px;
@@ -157,25 +170,29 @@
             box-shadow: 0 5px 12px rgba(200, 165, 60, 0.15);
         }
 
+        /* Welcome section */
         .welcome-box {
-            padding: 26px;
+            max-width: 850px;
+            padding: 28px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(255, 250, 208, 0.95),
-                    rgba(255, 248, 225, 0.95)
+                    rgba(255, 250, 208, 0.85),
+                    rgba(255, 248, 225, 0.85)
                 );
 
             border: 1px solid #eee0a8;
             border-left: 4px solid #d9bb55;
             border-radius: 16px;
+
+            backdrop-filter: blur(5px);
         }
 
         .welcome-box h2 {
             margin: 0 0 10px;
             color: #947323;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
         }
 
@@ -193,19 +210,21 @@
             line-height: 1.7;
         }
 
+        /* Features */
         .features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 28px;
+            gap: 18px;
+            margin-top: 30px;
         }
 
         .feature {
-            padding: 22px 20px;
-            background: #fffefa;
+            padding: 24px 20px;
+            background: rgba(255, 255, 255, 0.65);
             border: 1px solid #eee5c5;
             border-radius: 15px;
             transition: 0.25s ease;
+            backdrop-filter: blur(4px);
         }
 
         .feature:hover {
@@ -260,19 +279,24 @@
             font-size: 13px;
         }
 
+        /* Mobile */
         @media (max-width: 650px) {
 
             .container {
-                width: 94%;
-                margin: 35px auto;
+                padding: 35px 5%;
             }
 
             .home-card {
-                padding: 32px 22px;
+                min-height: 100vh;
+                padding: 20px 0;
             }
 
             h1 {
-                font-size: 30px;
+                font-size: 34px;
+            }
+
+            .subtitle {
+                font-size: 16px;
             }
 
             nav {
@@ -312,7 +336,9 @@
             </p>
 
             <nav>
-                <a href="<?= site_url('student'); ?>">Home</a>
+                <a href="<?= site_url('student'); ?>">
+                    Home
+                </a>
 
                 <a href="<?= site_url('student/profile'); ?>">
                     Profile
@@ -327,19 +353,6 @@
                     <?= $message; ?>
                 </p>
 
-            
-
-            </div>
-
-           
-
-                
-                    </p>
-                </div>
-
-            </div>
-
-        
             </div>
 
         </div>
