@@ -305,7 +305,7 @@
             <h1><?= $title; ?></h1>
 
             <p class="subtitle">
-                A simple collection of my academic and personal
+                Collection of my academic and personal
                 information.
             </p>
 
@@ -315,7 +315,7 @@
                 </a>
 
                 <a href="<?= site_url('student/profile'); ?>">
-                    Student Profile
+                Profile
                 </a>
             </nav>
 
@@ -372,13 +372,9 @@
 
             </div>
 
-            <div class="protected">
-                Student profile access has been verified by
-                StudentMiddleware.
+        
             </div>
 
-            <div class="footer">
-                Student Profile · LavaLust Web Application
             </div>
 
         </div>

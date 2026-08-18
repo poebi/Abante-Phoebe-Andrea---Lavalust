@@ -308,15 +308,14 @@
             <h1><?= $title; ?></h1>
 
             <p class="subtitle">
-                A small space that reflects my journey as a student,
-                combining learning, creativity, and personal growth.
+                Small progress is still progress.
             </p>
 
             <nav>
                 <a href="<?= site_url('student'); ?>">Home</a>
 
                 <a href="<?= site_url('student/profile'); ?>">
-                    Student Profile
+                    Profile
                 </a>
             </nav>
 
@@ -328,44 +327,19 @@
                     <?= $message; ?>
                 </p>
 
-                <p class="description">
-                    This website demonstrates LavaLust routing,
-                    controllers, views, data passing, navigation,
-                    and middleware.
-                </p>
+            
 
             </div>
 
-            <div class="features">
+           
 
-                <div class="feature">
-                    <h3>Learning</h3>
-                    <p>
-                        Exploring web development and building
-                        practical programming skills.
-                    </p>
-                </div>
-
-                <div class="feature">
-                    <h3>Creativity</h3>
-                    <p>
-                        Designing simple and meaningful digital
-                        experiences.
-                    </p>
-                </div>
-
-                <div class="feature">
-                    <h3>Growth</h3>
-                    <p>
-                        Continuously improving through projects,
-                        practice, and new challenges.
+                
                     </p>
                 </div>
 
             </div>
 
-            <div class="footer">
-                Student Information Page · LavaLust Web Application
+        
             </div>
 
         </div>
