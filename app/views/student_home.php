@@ -252,7 +252,7 @@
 
             <div class="hero-title-group">
                 <p class="title-sub">Hi, It's Me,</p>
-                <h1 class="title-main"><?= $name ?? 'Phoebe'; ?></h1>
+                <h1 class="title-main"><?= $name ?? 'Phoebe!'; ?></h1>
             </div>
 
             <nav class="nav-dock">
