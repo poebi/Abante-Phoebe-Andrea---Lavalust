@@ -16,8 +16,8 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #0f172a;
-            color: #f8fafc;
+            background: #fffdf2;
+            color: #574d35;
             min-height: 100vh;
             padding: 40px 20px;
             display: flex;
@@ -43,31 +43,25 @@
         .title-group h1 {
             font-size: 28px;
             font-weight: 700;
-            color: #ffffff;
+            color: #3b331f;
             letter-spacing: -0.5px;
         }
 
-        .title-group p {
-            color: #94a3b8;
-            font-size: 14px;
-            margin-top: 4px;
-        }
-
         .badge-count {
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            padding: 8px 16px;
+            background: #fef08a;
+            color: #854d0e;
+            border: 1px solid #facc15;
+            padding: 8px 18px;
             border-radius: 9999px;
             font-size: 13px;
             font-weight: 600;
         }
 
         .table-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            background: #ffffff;
+            border: 1px solid #fef08a;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.08);
             overflow: hidden;
         }
 
@@ -84,21 +78,21 @@
         }
 
         thead {
-            background: #0f172a;
-            border-bottom: 1px solid #334155;
+            background: #fef9c3;
+            border-bottom: 1px solid #fef08a;
         }
 
         th {
             padding: 16px 20px;
-            font-weight: 600;
-            color: #94a3b8;
+            font-weight: 700;
+            color: #854d0e;
             text-transform: uppercase;
             font-size: 11px;
             letter-spacing: 0.8px;
         }
 
         tbody tr {
-            border-bottom: 1px solid #334155;
+            border-bottom: 1px solid #fefce8;
             transition: background 0.2s ease;
         }
 
@@ -107,48 +101,50 @@
         }
 
         tbody tr:hover {
-            background: rgba(51, 65, 85, 0.4);
+            background: #fefde8;
         }
 
         td {
             padding: 16px 20px;
-            color: #cbd5e1;
+            color: #574d35;
         }
 
         .user-id {
             font-weight: 600;
-            color: #64748b;
+            color: #a16207;
         }
 
         .user-name {
             font-weight: 600;
-            color: #f8fafc;
+            color: #3b331f;
         }
 
         .username-tag {
             font-family: monospace;
-            background: #0f172a;
-            color: #38bdf8;
-            padding: 4px 10px;
-            border-radius: 6px;
+            background: #fef9c3;
+            color: #854d0e;
+            padding: 5px 12px;
+            border-radius: 8px;
             font-size: 13px;
-            border: 1px solid #1e293b;
+            border: 1px solid #fde047;
+            font-weight: 600;
         }
 
         .email-link {
-            color: #94a3b8;
+            color: #713f12;
             text-decoration: none;
+            font-weight: 500;
         }
 
         .email-link:hover {
-            color: #60a5fa;
+            color: #ca8a04;
             text-decoration: underline;
         }
 
         .empty-state {
             padding: 40px;
             text-align: center;
-            color: #64748b;
+            color: #a16207;
         }
 
         @media (max-width: 640px) {
@@ -166,8 +162,7 @@
 <div class="container">
     <div class="header">
         <div class="title-group">
-            <h1>Users</h1>
-            
+            <h1>Users Management</h1>
         </div>
         <div class="badge-count">
             Total Users: <?= count($users); ?>
