@@ -173,6 +173,7 @@
         /* Navigation */
         nav {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
 
             margin: 32px 0;
@@ -187,25 +188,38 @@
 
             border: 1px solid #e5d184;
 
-            padding: 10px 20px;
+            padding: 12px 24px;
 
             border-radius: 20px;
 
             font-size: 14px;
             font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
 
             transition: all 0.25s ease;
         }
 
-        nav a:hover {
+        @media (hover: hover) {
+            nav a:hover {
+                background: #ffefaa;
+
+                border-color: #d6b94d;
+
+                transform: translateY(-2px);
+
+                box-shadow:
+                    0 5px 12px rgba(200, 165, 60, 0.15);
+            }
+        }
+
+        nav a:active {
             background: #ffefaa;
-
-            border-color: #d6b94d;
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 5px 12px rgba(200, 165, 60, 0.15);
+            transform: scale(0.98);
         }
 
         /* Student information */
@@ -312,29 +326,36 @@
         @media (max-width: 650px) {
 
             .container {
-                padding: 35px 5%;
+                padding: 20px 4%;
             }
 
             .profile-card {
-                min-height: 100vh;
+                min-height: auto;
 
-                padding: 20px 0;
+                padding: 15px 0;
+
+                overflow: visible;
             }
 
             h1 {
-                font-size: 34px;
+                font-size: 32px;
             }
 
             .subtitle {
-                font-size: 16px;
+                font-size: 15px;
             }
 
             nav {
                 flex-direction: column;
+                gap: 10px;
+                width: 100%;
             }
 
             nav a {
-                text-align: center;
+                width: 100%;
+                min-height: 48px;
+                font-size: 15px;
+                box-sizing: border-box;
             }
 
             .row {

@@ -133,6 +133,7 @@
 
         nav {
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             margin: 32px 0;
         }
@@ -142,19 +143,31 @@
             color: #70591d;
             background: rgba(255, 245, 200, 0.8);
             border: 1px solid #e5d184;
-            padding: 10px 22px;
+            padding: 12px 24px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
             transition: all 0.25s ease;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        nav a:hover {
+        @media (hover: hover) {
+            nav a:hover {
+                background: #ffefaa;
+                border-color: #d6b94d;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 12px rgba(200, 165, 60, 0.15);
+            }
+        }
+
+        nav a:active {
             background: #ffefaa;
-            border-color: #d6b94d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(200, 165, 60, 0.15);
+            transform: scale(0.98);
         }
 
         .table-card {
@@ -197,6 +210,7 @@
         .table-responsive {
             width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
@@ -284,23 +298,29 @@
 
         @media (max-width: 650px) {
             .container {
-                padding: 35px 5%;
+                padding: 20px 4%;
             }
             .users-card {
-                min-height: 100vh;
-                padding: 20px 0;
+                min-height: auto;
+                padding: 15px 0;
+                overflow: visible;
             }
             h1 {
-                font-size: 34px;
+                font-size: 32px;
             }
             .subtitle {
-                font-size: 16px;
+                font-size: 15px;
             }
             nav {
                 flex-direction: column;
+                gap: 10px;
+                width: 100%;
             }
             nav a {
-                text-align: center;
+                width: 100%;
+                min-height: 48px;
+                font-size: 15px;
+                box-sizing: border-box;
             }
             .table-header-bar {
                 flex-direction: column;

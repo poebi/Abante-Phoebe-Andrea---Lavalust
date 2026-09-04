@@ -546,8 +546,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         @media (max-width: 768px) {
             .features-layout { grid-template-columns: 1fr; }
             .code-section { grid-template-columns: 1fr; }
-            nav { padding: 1rem 1.5rem; }
-            .nav-links a:not(.btn-nav) { display: none; }
+            nav { padding: 1rem; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; }
+            .nav-links { flex-wrap: wrap; gap: 0.5rem; }
+            .nav-links a { min-height: 44px; display: inline-flex; align-items: center; padding: 0.5rem 0.75rem; -webkit-tap-highlight-color: transparent; }
+            .nav-links .btn-nav { margin-left: 0; }
             section { padding: 3rem 1.5rem; }
         }
     </style>
