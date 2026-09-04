@@ -7,8 +7,8 @@ class StudentController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Student Information',
-            'message' => 'Welcome to my personal student information page.'
+            'title' => 'Hi! Its Me,',
+            'message' => 'Small progress is still progress.'
         ];
 
         $this->call->view('student_home', $data);

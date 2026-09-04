@@ -3,256 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'Student Hub'; ?></title>
+    <title>Hi, It's Me</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600;1,700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            --warm-fog: #DDD3C9;
+            --berry-good: #ECC4C3;
+            --blossom: #B97D7B;
+            --meadow-mauve: #928E5E;
+            --soldier-green: #575527;
         }
 
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+
+        /* Balanced, High-Exposure Airy Canvas */
+        body {
             min-height: 100vh;
-            font-family: Arial, sans-serif;
-            color: #554936;
-            background:
-                radial-gradient(circle at 10% 15%, #fff3a8 0 3%, transparent 4%),
-                radial-gradient(circle at 90% 20%, #f4d9ff 0 3%, transparent 4%),
-                radial-gradient(circle at 15% 85%, #dff7df 0 4%, transparent 5%),
-                radial-gradient(circle at 88% 85%, #ffdce5 0 3%, transparent 4%),
-                linear-gradient(135deg, #fffdf0, #fff7c9, #fffbea);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--soldier-green);
+            background-color: #FAF6F2;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(236, 196, 195, 0.45) 0px, transparent 55%),
+                radial-gradient(at 100% 0%, rgba(221, 211, 201, 0.55) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 196, 195, 0.35) 0px, transparent 55%),
+                radial-gradient(at 0% 100%, rgba(146, 142, 94, 0.2) 0px, transparent 50%),
+                repeating-linear-gradient(45deg, rgba(185, 125, 123, 0.04) 0, rgba(185, 125, 123, 0.04) 1.5px, transparent 0, transparent 20px);
             background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
         }
 
         .container {
             width: 100%;
-            min-height: 100vh;
-            margin: 0;
-            padding: 70px 8%;
-            display: flex;
-            align-items: center;
+            max-width: 860px;
         }
 
-        .home-card {
+        /* Luminous Double-Offset Cursive Frame */
+        .frame-outer {
+            background: #FFFFFF;
+            border: 3.5px dashed var(--blossom);
+            outline: 6px solid rgba(236, 196, 195, 0.55);
+            outline-offset: 4px;
+            border-radius: 65px 30px 75px 25px / 30px 70px 25px 65px;
+            padding: 16px;
+            box-shadow: 
+                0 25px 50px rgba(185, 125, 123, 0.15),
+                0 8px 24px rgba(87, 85, 39, 0.08);
             position: relative;
-            width: 100%;
-            min-height: calc(100vh - 140px);
-            padding: 40px 5%;
+        }
+
+        /* Inner Parchment with Harmonized Soft Gridlines */
+        .frame-inner {
+            background-color: #FFFDF9;
+            background-image: 
+                linear-gradient(rgba(185, 125, 123, 0.16) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(185, 125, 123, 0.16) 1px, transparent 1px),
+                radial-gradient(circle at 0% 0%, rgba(236, 196, 195, 0.5) 0%, transparent 45%),
+                radial-gradient(circle at 100% 100%, rgba(221, 211, 201, 0.45) 0%, transparent 45%);
+            background-size: 24px 24px, 24px 24px, 100% 100%, 100% 100%;
+            border: 2px solid var(--berry-good);
+            border-radius: 55px 24px 65px 20px / 24px 60px 20px 55px;
+            padding: 56px 46px;
+            position: relative;
             overflow: hidden;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            border-radius: 0;
         }
 
-        .home-card::before {
-            content: "";
+        /* Corner Flourishes */
+        .corner-flourish {
             position: absolute;
-            width: 260px;
-            height: 260px;
-            background: #fff2a6;
-            border-radius: 50%;
-            top: -100px;
-            right: -70px;
-            opacity: 0.35;
-            filter: blur(8px);
-            z-index: 0;
+            width: 50px;
+            height: 50px;
+            stroke: var(--blossom);
+            fill: none;
+            stroke-width: 2.5;
+            opacity: 0.85;
+            pointer-events: none;
         }
+        .corner-tl { top: 12px; left: 12px; }
+        .corner-tr { top: 12px; right: 12px; transform: scaleX(-1); }
+        .corner-bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
+        .corner-br { bottom: 12px; right: 12px; transform: scale(-1, -1); }
 
-        .home-card::after {
-            content: "";
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: #ead7ff;
-            border-radius: 50%;
-            bottom: -90px;
-            left: -60px;
-            opacity: 0.3;
-            filter: blur(10px);
-            z-index: 0;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .fairy-line {
+        .palette-swatches {
             display: flex;
-            align-items: center;
             gap: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
 
-        .fairy-line span {
-            display: block;
-            width: 7px;
-            height: 7px;
+        .swatch-dot {
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: #e2c354;
-            box-shadow: 0 0 8px #f5df82;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 3px 6px rgba(87, 85, 39, 0.15);
         }
 
-        .fairy-line span:nth-child(2) {
-            width: 5px;
-            height: 5px;
-            background: #cdb4e9;
-        }
-
-        .fairy-line span:nth-child(3) {
-            width: 4px;
-            height: 4px;
-            background: #eab8c6;
-        }
-
-        .fairy-line .line {
-            width: 48px;
-            height: 3px;
-            border-radius: 5px;
-            background: linear-gradient(to right, #d8b84c, #ead7a0);
-        }
-
-        h1 {
-            margin: 0 0 12px;
-            color: #92701e;
-            font-size: 48px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            max-width: 700px;
-            margin: 0;
-            color: #817765;
-            font-size: 18px;
-            line-height: 1.8;
-        }
-
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 32px 0;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #70591d;
-            background: rgba(255, 245, 200, 0.8);
-            border: 1px solid #e5d184;
-            padding: 12px 24px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.25s ease;
+        .cursive-flair {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            color: var(--blossom);
             display: inline-flex;
             align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .hero-title-group {
+            margin-bottom: 28px;
+        }
+
+        .title-sub {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--meadow-mauve);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .title-main {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 68px;
+            font-weight: 700;
+            color: var(--soldier-green);
+            line-height: 1.05;
+            margin-top: 2px;
+            text-shadow: 2px 2px 0px rgba(236, 196, 195, 0.7);
+        }
+
+        .nav-dock {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px;
+            border-radius: 999px;
+            gap: 8px;
+            margin-bottom: 34px;
+            border: 2px solid var(--warm-fog);
+            box-shadow: 0 4px 14px rgba(185, 125, 123, 0.12);
+        }
+
+        .nav-dock a {
+            text-decoration: none;
+            color: var(--soldier-green);
+            padding: 10px 26px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+
+        .nav-dock a.active, .nav-dock a:hover {
+            background: linear-gradient(135deg, var(--blossom), var(--meadow-mauve));
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(185, 125, 123, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .quote-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px dashed var(--meadow-mauve);
+            border-radius: 35px 15px 40px 15px / 15px 35px 15px 35px;
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: inset 0 0 14px rgba(236, 196, 195, 0.25);
+        }
+
+        .quote-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--soldier-green);
+            color: var(--berry-good);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            min-height: 44px;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-        }
-
-        @media (hover: hover) {
-            nav a:hover {
-                background: #ffefaa;
-                border-color: #d6b94d;
-                transform: translateY(-2px);
-                box-shadow: 0 5px 12px rgba(200, 165, 60, 0.15);
-            }
-        }
-
-        nav a:active {
-            background: #ffefaa;
-            transform: scale(0.98);
-        }
-
-        .welcome-box {
-            max-width: 850px;
-            padding: 28px;
-            background: linear-gradient(135deg, rgba(255, 250, 208, 0.85), rgba(255, 248, 225, 0.85));
-            border: 1px solid #eee0a8;
-            border-left: 4px solid #d9bb55;
-            border-radius: 16px;
-            backdrop-filter: blur(5px);
-        }
-
-        .welcome-box h2 {
-            margin: 0 0 10px;
-            color: #947323;
             font-size: 22px;
-            font-weight: 600;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(87, 85, 39, 0.25);
         }
 
-        .welcome {
-            margin: 0;
-            color: #5f5545;
+        .quote-body h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            color: var(--blossom);
+            margin-bottom: 2px;
+        }
+
+        .quote-body p {
             font-size: 16px;
-            line-height: 1.7;
+            font-weight: 600;
+            color: var(--soldier-green);
+            line-height: 1.4;
         }
 
-        @media (max-width: 650px) {
-            .container {
-                padding: 20px 4%;
-            }
-            .home-card {
-                min-height: auto;
-                padding: 15px 0;
-                overflow: visible;
-            }
-            h1 {
-                font-size: 32px;
-            }
-            .subtitle {
-                font-size: 15px;
-            }
-            nav {
-                flex-direction: column;
-                gap: 10px;
-                width: 100%;
-            }
-            nav a {
-                width: 100%;
-                min-height: 48px;
-                font-size: 15px;
-                box-sizing: border-box;
-            }
+        @media (max-width: 600px) {
+            .frame-inner { padding: 36px 20px; }
+            .title-main { font-size: 48px; }
+            .nav-dock { display: flex; flex-direction: column; border-radius: 24px; }
+            .nav-dock a { text-align: center; }
+            .quote-panel { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="home-card">
-        <div class="content">
+    <div class="frame-outer">
+        <div class="frame-inner">
+            
+            <!-- Corner Accents -->
+            <svg class="corner-flourish corner-tl" viewBox="0 0 40 40">
+                <path d="M 4,36 C 4,14 14,4 36,4 M 8,28 C 8,16 16,8 28,8" />
+                <circle cx="36" cy="4" r="2.5" fill="var(--blossom)" />
+            </svg>
+            <svg class="corner-flourish corner-tr" viewBox="0 0 40 40">
+                <path d="M 4,36 C 4,14 14,4 36,4 M 8,28 C 8,16 16,8 28,8" />
+                <circle cx="36" cy="4" r="2.5" fill="var(--blossom)" />
+            </svg>
+            <svg class="corner-flourish corner-bl" viewBox="0 0 40 40">
+                <path d="M 4,36 C 4,14 14,4 36,4 M 8,28 C 8,16 16,8 28,8" />
+                <circle cx="36" cy="4" r="2.5" fill="var(--blossom)" />
+            </svg>
+            <svg class="corner-flourish corner-br" viewBox="0 0 40 40">
+                <path d="M 4,36 C 4,14 14,4 36,4 M 8,28 C 8,16 16,8 28,8" />
+                <circle cx="36" cy="4" r="2.5" fill="var(--blossom)" />
+            </svg>
 
-            <div class="fairy-line">
-                <span></span>
-                <span></span>
-                <span></span>
-                <div class="line"></div>
+            <div class="palette-swatches">
+                <span class="swatch-dot" style="background: var(--warm-fog);"></span>
+                <span class="swatch-dot" style="background: var(--berry-good);"></span>
+                <span class="swatch-dot" style="background: var(--blossom);"></span>
+                <span class="swatch-dot" style="background: var(--meadow-mauve);"></span>
+                <span class="swatch-dot" style="background: var(--soldier-green);"></span>
             </div>
 
-            <h1><?= $title ?? 'Student Information'; ?></h1>
+            <div class="cursive-flair">✦ Welcome to my page ✦</div>
 
-            <p class="subtitle">
-                Small progress is still progress.
-            </p>
+            <div class="hero-title-group">
+                <p class="title-sub">Hi, It's Me,</p>
+                <h1 class="title-main"><?= $name ?? 'Phoebe'; ?></h1>
+            </div>
 
-            <nav>
-                <a href="<?= site_url(''); ?>">Home</a>
+            <nav class="nav-dock">
+                <a href="<?= site_url(''); ?>" class="active">Home</a>
                 <a href="<?= site_url('student/profile'); ?>">Profile</a>
                 <a href="<?= site_url('users'); ?>">Users List</a>
             </nav>
 
-            <div class="welcome-box">
-                <h2>Welcome</h2>
-                <p class="welcome">
-                    <?= $message ?? 'Welcome to my personal student information page'; ?>
-                </p>
+            <div class="quote-panel">
+                <div class="quote-icon">✿</div>
+                <div class="quote-body">
+                    <h3>Daily Reminder</h3>
+                    <p><?= $message ?? 'Small progress is still progress.'; ?></p>
+                </div>
             </div>
 
         </div>
