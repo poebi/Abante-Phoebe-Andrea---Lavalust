@@ -374,13 +374,9 @@
             </p>
 
             <nav>
-                <a href="<?= site_url('student'); ?>">
-                    Home
-                </a>
-
-                <a href="<?= site_url('student/profile'); ?>">
-                    Profile
-                </a>
+                <a href="<?= site_url(''); ?>">Home</a>
+                <a href="<?= site_url('student/profile'); ?>">Profile</a>
+                <a href="<?= site_url('users'); ?>">Users List</a>
             </nav>
 
             <div class="info">

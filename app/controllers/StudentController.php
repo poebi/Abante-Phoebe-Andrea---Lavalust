@@ -23,7 +23,7 @@ class StudentController extends Controller
             'year' => '3rd Year',
             'section' => 'F2',
             'email' => 'phoebeabante18@gmail.com',
-            'hobbies' => 'Watching movies, Music, and Designing'
+            'hobbies' => 'Watching movies, Music, and Playing games'
         ];
 
         $data = [

@@ -79,7 +79,15 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= '';
+if (isset($_SERVER['HTTP_HOST'])) {
+    $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $base_path = preg_replace('/\/public$/', '', $script_dir);
+    $base_path = rtrim($base_path, '/') . '/';
+    $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+    $config['base_url'] = $scheme . '://' . $_SERVER['HTTP_HOST'] . $base_path;
+} else {
+    $config['base_url'] = 'http://localhost/LavaLust/';
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +107,7 @@ $config['proxy_enabled']           = FALSE;
 | variable to blank.
 |
 */
-$config['index_page']               = 'index.php';
+$config['index_page']               = '';
 
 /*
 |--------------------------------------------------------------------------
