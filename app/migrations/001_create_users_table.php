@@ -25,6 +25,16 @@ class Create_users_table {
                     'auto_increment' => TRUE,
                     'null'           => FALSE,
                 ],
+                'firstname' => [
+                    'type'       => 'VARCHAR',
+                    'constraint' => 100,
+                    'null'       => TRUE,
+                ],
+                'lastname' => [
+                    'type'       => 'VARCHAR',
+                    'constraint' => 100,
+                    'null'       => TRUE,
+                ],
                 'username' => [
                     'type'       => 'VARCHAR',
                     'constraint' => 100,
@@ -39,7 +49,7 @@ class Create_users_table {
                 'password' => [
                     'type'       => 'VARCHAR',
                     'constraint' => 255,
-                    'null'       => FALSE,
+                    'null'       => TRUE,
                 ],
                 'role' => [
                     'type'       => 'ENUM',
