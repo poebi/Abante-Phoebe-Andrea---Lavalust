@@ -256,9 +256,9 @@
             </div>
 
             <nav class="nav-dock">
-                <a href="<?= site_url(''); ?>" class="active">Home</a>
+                <a href="<?= site_url('student'); ?>" class="active">Home</a>
                 <a href="<?= site_url('student/profile'); ?>">Profile</a>
-                <a href="<?= site_url('users'); ?>">Users List</a>
+                <a href="<?= site_url('logout'); ?>" style="color: var(--blossom); font-weight: bold;">Logout</a>
             </nav>
 
             <div class="quote-panel">

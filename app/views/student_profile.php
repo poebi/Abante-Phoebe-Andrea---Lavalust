@@ -280,9 +280,9 @@
             <div class="profile-header">
                 <h1 class="title-main">Student Profile</h1>
                 <nav class="nav-dock">
-                    <a href="<?= site_url(''); ?>">Home</a>
+                    <a href="<?= site_url('student'); ?>">Home</a>
                     <a href="<?= site_url('student/profile'); ?>" class="active">Profile</a>
-                    <a href="<?= site_url('users'); ?>">Users List</a>
+                    <a href="<?= site_url('logout'); ?>" style="color: var(--blossom); font-weight: bold;">Logout</a>
                 </nav>
             </div>
 
