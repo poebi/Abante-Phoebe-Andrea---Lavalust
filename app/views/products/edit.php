@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product - LavaLust CRUD</title>
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <?php $css_path = file_exists($_SERVER['DOCUMENT_ROOT'] . '/css/style.css') ? 'css/style.css' : 'public/css/style.css'; ?>
+    <link rel="stylesheet" href="<?= base_url($css_path) ?>">
 </head>
 <body>
 
