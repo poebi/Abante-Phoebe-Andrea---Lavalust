@@ -110,4 +110,27 @@ class AuthController extends Controller
         }
         $this->api->refresh_access_token($refreshToken);
     }
+
+    /** Helper method to create or reset the admin user in the database */
+    public function setup_admin()
+    {
+        $this->call->database();
+        $username = 'admin';
+        $plainPassword = 'password123';
+        $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT);
+
+        $check = $this->db->raw('SELECT id FROM users WHERE username = ? LIMIT 1', [$username]);
+        $existing = $check->fetch(PDO::FETCH_ASSOC);
+
+        if ($existing) {
+            $this->db->raw('UPDATE users SET password = ? WHERE username = ?', [$hashedPassword, $username]);
+            echo "Admin password updated to: <b>password123</b>";
+        } else {
+            $this->db->raw(
+                'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
+                [$username, $hashedPassword, 'admin']
+            );
+            echo "Admin user created! Username: <b>admin</b> | Password: <b>password123</b>";
+        }
+    }
 }
