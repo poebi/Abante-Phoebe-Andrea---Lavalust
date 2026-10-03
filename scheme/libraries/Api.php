@@ -246,7 +246,10 @@ class Api
     {
         array_walk_recursive($data, function(&$value) {
             if (is_string($value)) {
-                $value = trim(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
+                // JSON request values are data, not HTML. Escape only when
+                // rendering into an HTML context so API clients receive the
+                // original text and the frontend can display it safely.
+                $value = trim($value);
             }
         });
         return $data;
@@ -528,6 +531,8 @@ class Api
             'sub'  => $user_id,
             'type' => 'refresh',
             'jti'  => bin2hex(random_bytes(16)),
+            'role' => $user_data['role'] ?? 'user',
+            'scopes' => $scopes,
         ];
 
         $access_token  = $this->encode_jwt($access_payload);
@@ -583,7 +588,11 @@ class Api
         // Revoke old + rotate (best practice)
         $this->revoke_refresh_token($refresh_token);
 
-        $new_tokens = $this->issue_tokens(['id' => $payload['sub']]);
+        $new_tokens = $this->issue_tokens([
+            'id' => $payload['sub'],
+            'role' => $payload['role'] ?? 'user',
+            'scopes' => $payload['scopes'] ?? ['read'],
+        ]);
 
         $this->respond([
             'message' => 'Tokens refreshed successfully',

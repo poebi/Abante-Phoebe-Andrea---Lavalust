@@ -1,0 +1,11 @@
+.git
+.vs
+.env
+.env.*
+!.env.example
+**/node_modules
+**/vendor
+runtime/cache
+runtime/logs
+frontend
+setup_db.php

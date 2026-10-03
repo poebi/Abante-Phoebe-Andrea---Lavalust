@@ -1,9 +1,17 @@
 <?php
-$host = 'mysql-3cd37ed5-phoebeabante18.j.aivencloud.com';
-$port = '16717';
-$user = 'avnadmin';
-$pass = 'AVNS_lwfP7XnONBwn5pCs5Fv';
-$db = 'defaultdb';
+$env = static function ($key) {
+    $value = $_ENV[$key] ?? getenv($key);
+    if ($value === false || $value === null || $value === '') {
+        throw new RuntimeException("Missing required environment variable: {$key}");
+    }
+    return $value;
+};
+
+$host = $env('DB_HOST');
+$port = $env('DB_PORT');
+$user = $env('DB_USERNAME');
+$pass = $env('DB_PASSWORD');
+$db = $env('DB_DATABASE');
 
 $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
 $options = [
@@ -11,6 +19,17 @@ $options = [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
+
+$caFile = $_ENV['DB_SSL_CA'] ?? getenv('DB_SSL_CA');
+if ($caFile !== false && $caFile !== null && $caFile !== '') {
+    if (!is_file($caFile) || !is_readable($caFile)) {
+        throw new RuntimeException('Configured MySQL CA certificate is missing or unreadable.');
+    }
+    $options[PDO::MYSQL_ATTR_SSL_CA] = $caFile;
+    if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+        $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+    }
+}
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);

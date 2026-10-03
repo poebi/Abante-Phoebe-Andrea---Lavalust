@@ -268,6 +268,22 @@ class Database {
             PDO::ATTR_EMULATE_PREPARES   => false,
         );
 
+        // Optionally verify MySQL TLS with the provider's CA certificate.
+        // DB_SSL_CA should point to a CA PEM file supplied at runtime.
+        $ssl_ca = $database_config['ssl_ca'] ?? null;
+        if ($driver === 'mysql' && !empty($ssl_ca)) {
+            if (!is_file($ssl_ca) || !is_readable($ssl_ca)) {
+                throw new PDOException('Configured MySQL CA certificate is missing or unreadable.');
+            }
+            if (!defined('PDO::MYSQL_ATTR_SSL_CA')) {
+                throw new PDOException('PDO MySQL SSL support is unavailable.');
+            }
+            $options[PDO::MYSQL_ATTR_SSL_CA] = $ssl_ca;
+            if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            }
+        }
+
         try {
             $this->db = new PDO($dsn, $username, $password, $options);
             $this->driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);

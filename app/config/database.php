@@ -1,14 +1,27 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
-$database['main'] = array(
-    'driver'   => $_ENV['DB_DRIVER'] ?? getenv('DB_DRIVER') ?: 'mysql',
-    'hostname' => $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?: 'mysql-3cd37ed5-phoebeabante18.j.aivencloud.com',
-    'port'     => $_ENV['DB_PORT'] ?? getenv('DB_PORT') ?: '16717',
-    'username' => $_ENV['DB_USERNAME'] ?? getenv('DB_USERNAME') ?: 'avnadmin',
-    'password' => $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD') ?: 'AVNS_lwfP7XnONBwn5pCs5Fv',
-    'database' => $_ENV['DB_DATABASE'] ?? getenv('DB_DATABASE') ?: 'lavalust_crud',
-    'charset'  => 'utf8mb4',
+$env_value = static function ($name, $default = null) {
+    $value = $_ENV[$name] ?? getenv($name);
+    return ($value === false || $value === null || $value === '') ? $default : $value;
+};
+
+$required_database_env = ['DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE'];
+foreach ($required_database_env as $env_name) {
+    if ($env_value($env_name) === null) {
+        throw new RuntimeException("Missing required database environment variable: {$env_name}");
+    }
+}
+
+$database['main'] = [
+    'driver'   => $env_value('DB_DRIVER', 'mysql'),
+    'hostname' => $env_value('DB_HOST'),
+    'port'     => $env_value('DB_PORT'),
+    'username' => $env_value('DB_USERNAME'),
+    'password' => $env_value('DB_PASSWORD'),
+    'database' => $env_value('DB_DATABASE'),
+    'charset'  => $env_value('DB_CHARSET', 'utf8mb4'),
+    'ssl_ca'   => $env_value('DB_SSL_CA'),
     'dbprefix' => '',
-    'path'     => ''
-);
+    'path'     => '',
+];
