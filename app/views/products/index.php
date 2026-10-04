@@ -50,7 +50,7 @@
                                     <td><?= html_escape($product['id']) ?></td>
                                     <td><?= html_escape($product['product_name']) ?></td>
                                     <td><?= html_escape($product['description']) ?></td>
-                                    <td>$<?= html_escape($product['price']) ?></td>
+                                    <td>₱<?= html_escape($product['price']) ?></td>
                                     <td><?= html_escape($product['quantity']) ?></td>
                                     <td>
                                         <div class="action-buttons">

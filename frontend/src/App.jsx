@@ -44,8 +44,8 @@ function App() {
 
 function Brand({ compact = false }) {
   return <div className={`brand ${compact ? 'brand-compact' : ''}`}>
-    <span className="brand-mark">L<span>·</span></span>
-    {!compact && <span className="brand-name">lavalust<span>stockroom</span></span>}
+    <span className="brand-mark">FV</span>
+    {!compact && <span className="brand-name">Fragrance<span>Vault</span></span>}
   </div>;
 }
 
@@ -74,9 +74,9 @@ function LoginPage() {
     <section className="login-card">
       <Brand />
       <div className="login-heading">
-        <span className="eyebrow">YOUR INVENTORY, IN GOOD HANDS</span>
+        <span className="eyebrow">ANOTHER DAY, ANOTHER SPRAY</span>
         <h1>Welcome<br />back<span>.</span></h1>
-        <p>Sign in to manage your products and keep your stock moving.</p>
+        <p>A fragrance collection: somewhere between a passionate hobby and organized hoarding.</p>
       </div>
       <form onSubmit={handleSubmit} className="login-form">
         <label htmlFor="username">Username</label>
@@ -84,11 +84,11 @@ function LoginPage() {
         <div className="password-label"><label htmlFor="password">Password</label><span>Secure access</span></div>
         <input id="password" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter your password" required />
         {error && <div className="form-error" role="alert">{error}</div>}
-        <button className="button button-primary button-wide" type="submit" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'} <span aria-hidden="true">↗</span></button>
+        <button className="button button-primary button-wide" type="submit" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
       </form>
-      <p className="login-foot">Protected workspace <span>·</span> LavaLust API</p>
+      <p className="login-foot">System Login</p>
     </section>
-    <aside className="login-quote"><div className="quote-orbit">✳</div><p>Make space for<br /><em>what’s next.</em></p><span>Thoughtful tools for everyday work.</span></aside>
+    <aside className="login-quote"><div className="quote-orbit">✳</div><p>Leave behind<br /><em>an unforgettable trace.</em></p><span>Where bottles become stories and scents become memories.</span></aside>
   </main>;
 }
 
@@ -101,6 +101,7 @@ function Dashboard() {
   const [search, setSearch] = useState('');
   const [modalProduct, setModalProduct] = useState(undefined);
   const [notice, setNotice] = useState('');
+  const [isDark, setIsDark] = useState(() => localStorage.getItem('theme') === 'dark');
 
   async function loadProducts() {
     setLoading(true);
@@ -140,10 +141,20 @@ function Dashboard() {
     return () => window.clearTimeout(timer);
   }, [notice]);
 
+  useEffect(() => {
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
   const visibleProducts = products.filter(product => `${product.product_name} ${product.description || ''}`.toLowerCase().includes(search.toLowerCase()));
   const totalValue = products.reduce((sum, product) => sum + Number(product.price || 0) * Number(product.quantity || 0), 0);
   const lowStock = products.filter(product => Number(product.quantity) <= 5).length;
-  const formatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' });
+  const formatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'PHP' });
   const initials = (user?.username || 'U').slice(0, 1).toUpperCase();
 
   return <div className="app-shell">
@@ -151,23 +162,23 @@ function Dashboard() {
       <Link className="sidebar-brand" to="/"><Brand /></Link>
       <div className="sidebar-section-label">WORKSPACE</div>
       <nav className="side-nav"><a href="#inventory" className="side-link active"><span className="nav-icon">▦</span> Products <span className="nav-count">{products.length}</span></a></nav>
-      <div className="sidebar-bottom"><div className="sidebar-tip"><span className="tip-icon">✳</span><strong>Little things add up.</strong><p>Keep your catalog tidy and your team in sync.</p></div><div className="sidebar-version">LAVALUST · INVENTORY</div></div>
+      <div className="sidebar-bottom"><div className="sidebar-tip"><span className="tip-icon">✳</span><strong>Little things add up.</strong><p>Keep your scents cataloged and your team completely aligned.</p></div><div className="sidebar-version" style={{textAlign: 'center'}}></div></div>
     </aside>
 
     <main className="main-panel">
-      <header className="topbar"><div className="mobile-brand"><Brand compact /></div><div className="breadcrumb">Workspace <span>/</span> <strong>Products</strong></div><div className="topbar-right"><span className="status-dot" /> All systems normal <div className="topbar-divider" /><div className="user-avatar">{initials}</div><div className="user-detail"><strong>{user?.username || 'Account'}</strong><span>Workspace member</span></div><button className="icon-button logout-button" onClick={() => { signOut(); navigate('/login', { replace: true }); }} title="Sign out" aria-label="Sign out">↗</button></div></header>
+      <header className="topbar"><div className="mobile-brand"><Brand compact /></div><div className="breadcrumb">Workspace <span>/</span> <strong>Products</strong></div><div className="topbar-right"><button className="icon-button" onClick={() => setIsDark(!isDark)} style={{border: 'none', background: 'transparent', fontSize: '18px'}}>{isDark ? '☀️' : '🌙'}</button><div className="topbar-divider" /><div className="user-avatar">{initials}</div><div className="user-detail"><strong>{user?.username || 'Account'}</strong><span>Workspace member</span></div><button className="icon-button logout-button" onClick={() => { signOut(); navigate('/login', { replace: true }); }} title="Sign out" aria-label="Sign out">↗</button></div></header>
 
       <div className="page-content" id="inventory">
-        <div className="page-heading"><div><span className="eyebrow">INVENTORY OVERVIEW</span><h1>Products<span>.</span></h1><p>A clear view of what you have and what’s moving.</p></div><button className="button button-primary" onClick={() => setModalProduct(null)}><span className="plus">+</span> Add product</button></div>
+        <div className="page-heading"><div><span className="eyebrow">INVENTORY OVERVIEW</span><h1>Products<span>.</span></h1><p></p></div><button className="button button-primary" onClick={() => setModalProduct(null)}><span className="plus">+</span> Add product</button></div>
 
         <section className="stats-grid" aria-label="Inventory summary">
-          <StatCard label="Total products" value={products.length.toLocaleString()} note="Items in your catalog" icon="▦" tone="mint" />
-          <StatCard label="Inventory value" value={formatter.format(totalValue)} note="Based on current stock" icon="$" tone="lavender" />
+          <StatCard label="Total" value={products.length.toLocaleString()} note="" icon="▦" tone="mint" />
+          <StatCard label="Value" value={formatter.format(totalValue)} note="" icon="₱" tone="lavender" />
           <StatCard label="Low stock" value={lowStock.toLocaleString()} note="5 units or fewer" icon="⌁" tone="peach" />
         </section>
 
         <section className="inventory-panel">
-          <div className="panel-heading"><div><h2>Product catalog</h2><p>Your complete list of products</p></div><div className="catalog-tools"><label className="search-box"><span>⌕</span><input aria-label="Search products" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." /><kbd>⌘ K</kbd></label><button className="button button-outline add-mobile" onClick={() => setModalProduct(null)}><span className="plus">+</span> Add product</button></div></div>
+          <div className="panel-heading"><div><h2>List of products</h2><p></p></div><div className="catalog-tools"><label className="search-box"><span>⌕</span><input aria-label="Search products" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." /><kbd>⌘ K</kbd></label><button className="button button-outline add-mobile" onClick={() => setModalProduct(null)}><span className="plus">+</span> Add product</button></div></div>
           {loadError && <div className="load-error" role="alert"><span>{loadError}</span><button className="button button-outline" onClick={loadProducts}>Try again</button></div>}
           {loading ? <div className="empty-state"><span className="loading-spinner" /><p>Loading your products…</p></div> : visibleProducts.length === 0 ? <div className="empty-state"><div className="empty-icon">▦</div><h3>{search ? 'No matching products' : 'Your catalog is ready'}</h3><p>{search ? 'Try another search term.' : 'Add your first product and it will show up here.'}</p>{!search && <button className="button button-primary" onClick={() => setModalProduct(null)}>Add your first product</button>}</div> : <>
             <div className="table-wrap"><table><thead><tr><th>PRODUCT</th><th>PRICE</th><th>QUANTITY</th><th>STOCK STATUS</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{visibleProducts.map((product, index) => <ProductRow key={product.id} product={product} index={index} formatter={formatter} onEdit={() => setModalProduct(product)} onDelete={() => handleDelete(product)} />)}</tbody></table></div>
@@ -175,7 +186,7 @@ function Dashboard() {
             <div className="table-footer"><span>Showing <strong>{visibleProducts.length}</strong> of <strong>{products.length}</strong> products</span><span className="updated-label"><span className="status-dot" /> Up to date</span></div>
           </>}
         </section>
-        <footer className="page-footer"><span>Made for a smoother day.</span><span>Stockroom <b>·</b> LavaLust</span></footer>
+        <footer className="page-footer"><span>Inventory Management</span><span>Admin <b>·</b> Portal</span></footer>
       </div>
     </main>
 
@@ -244,7 +255,7 @@ function ProductModal({ product, onClose, onSaved }) {
       <form onSubmit={submit} className="product-form">
         <label htmlFor="product_name">Product name <span>*</span></label><input id="product_name" maxLength="100" required autoFocus value={values.product_name} onChange={e => setValues({ ...values, product_name: e.target.value })} placeholder="e.g. Ceramic coffee cup" />
         <label htmlFor="description">Description</label><textarea id="description" rows="3" value={values.description} onChange={e => setValues({ ...values, description: e.target.value })} placeholder="A short description of your product" />
-        <div className="form-columns"><div><label htmlFor="price">Price <span>*</span></label><div className="input-prefix"><span>$</span><input id="price" type="number" min="0" step="0.01" max="99999999.99" required value={values.price} onChange={e => setValues({ ...values, price: e.target.value })} placeholder="0.00" /></div></div><div><label htmlFor="quantity">Quantity <span>*</span></label><input id="quantity" type="number" min="0" step="1" required value={values.quantity} onChange={e => setValues({ ...values, quantity: e.target.value })} placeholder="0" /></div></div>
+        <div className="form-columns"><div><label htmlFor="price">Price <span>*</span></label><div className="input-prefix"><span>₱</span><input id="price" type="number" min="0" step="0.01" max="99999999.99" required value={values.price} onChange={e => setValues({ ...values, price: e.target.value })} placeholder="0.00" /></div></div><div><label htmlFor="quantity">Quantity <span>*</span></label><input id="quantity" type="number" min="0" step="1" required value={values.quantity} onChange={e => setValues({ ...values, quantity: e.target.value })} placeholder="0" /></div></div>
         {error && <div className="form-error" role="alert">{error}</div>}
         <div className="modal-actions"><button className="button button-outline" type="button" disabled={busy} onClick={onClose}>Cancel</button><button className="button button-primary" type="submit" disabled={busy}>{busy ? 'Saving…' : editing ? 'Save changes' : 'Add product'} <span aria-hidden="true">↗</span></button></div>
       </form>

@@ -127,8 +127,8 @@ class AuthController extends Controller
             echo "Admin password updated to: <b>password123</b>";
         } else {
             $this->db->raw(
-                'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
-                [$username, $hashedPassword, 'admin']
+                'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)',
+                [$username, 'admin@example.com', $hashedPassword, 'admin']
             );
             echo "Admin user created! Username: <b>admin</b> | Password: <b>password123</b>";
         }
