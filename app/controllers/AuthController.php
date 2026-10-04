@@ -111,6 +111,48 @@ class AuthController extends Controller
         $this->api->refresh_access_token($refreshToken);
     }
 
+    /** API Register: Create a new user account. */
+    public function api_register()
+    {
+        $this->call->library('api');
+        $this->call->database();
+        $this->api->require_method('POST');
+        $input = json_decode(file_get_contents('php://input'), true);
+        $input = is_array($input) ? $input : $_POST;
+        
+        $username = trim((string) ($input['username'] ?? ''));
+        $email = trim((string) ($input['email'] ?? ''));
+        $password = (string) ($input['password'] ?? '');
+        $role = trim((string) ($input['role'] ?? 'user'));
+        
+        if ($username === '' || $password === '' || $email === '') {
+            $this->api->respond_error('Username, email, and password are required.', 422);
+        }
+        
+        $check = $this->db->raw('SELECT id FROM users WHERE username = ? OR email = ? LIMIT 1', [$username, $email]);
+        if ($check->fetch()) {
+            $this->api->respond_error('Username or email already exists.', 409);
+        }
+        
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $this->db->raw(
+            'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)',
+            [$username, $email, $hashedPassword, $role]
+        );
+        
+        $this->api->respond(['message' => 'User created successfully', 'data' => ['username' => $username, 'role' => $role]], 201);
+    }
+
+    /** API Logout: Log out the user by clearing client-side tokens (stateless). */
+    public function api_logout()
+    {
+        $this->call->library('api');
+        $this->api->require_method('POST');
+        // Since JWT is stateless, we just return success. 
+        // The client should delete the token on its end.
+        $this->api->respond(['message' => 'Logged out successfully'], 200);
+    }
+
     /** Helper method to create or reset the admin user in the database */
     public function setup_admin()
     {

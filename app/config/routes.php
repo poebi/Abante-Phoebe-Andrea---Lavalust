@@ -17,6 +17,7 @@ $router->get('/users', 'UsersController::index');
 // JSON API authentication endpoints
 $router->match('/api/auth/login', 'AuthController::api_login', ['POST', 'OPTIONS']);
 $router->match('/api/auth/refresh', 'AuthController::api_refresh', ['POST', 'OPTIONS']);
+$router->match('/create', 'AuthController::api_register', ['POST', 'OPTIONS']);
 
 // Fallbacks in case frontend requests without the /api prefix
 $router->match('/auth/login', 'AuthController::api_login', ['POST', 'OPTIONS']);

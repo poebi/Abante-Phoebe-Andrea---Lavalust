@@ -47,7 +47,9 @@ try {
         "CREATE TABLE IF NOT EXISTS users (
             id INT PRIMARY KEY AUTO_INCREMENT,
             username VARCHAR(50) NOT NULL,
-            password VARCHAR(255) NOT NULL
+            email VARCHAR(100),
+            password VARCHAR(255) NOT NULL,
+            role VARCHAR(20) DEFAULT 'user'
         )",
         "INSERT INTO users (username, password) VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')"
     ];
