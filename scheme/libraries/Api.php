@@ -374,7 +374,12 @@ class Api
      */
     public function respond_error($message, $code = 400)
     {
-        $this->respond(['error' => $message, 'status' => $code], $code);
+        $this->respond([
+            'success' => false,
+            'message' => $message,
+            'error'   => $message,
+            'status'  => $code
+        ], $code);
     }
 
     /**

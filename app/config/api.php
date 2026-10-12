@@ -96,7 +96,7 @@ $config['refresh_token_key'] = getenv('REFRESH_TOKEN_KEY') ?: '';
 | already deployed.
 |
 */
-$allowed_origins = getenv('CORS_ALLOWED_ORIGINS') ?: 'http://localhost:3000,http://localhost:5173';
+$allowed_origins = getenv('CORS_ALLOWED_ORIGINS') ?: 'http://localhost:3000,http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,http://127.0.0.1:5174,http://127.0.0.1:3000';
 $config['allow_origin'] = array_values(array_filter(array_map('trim', explode(',', $allowed_origins))));
 
 /*

@@ -219,23 +219,32 @@ function lava_instance()
 }
 $performance->stop('lavalust');
 
-if (php_sapi_name() === 'cli') {
+if (php_sapi_name() === 'cli' && empty($_SERVER['REQUEST_METHOD'])) {
     $raw_url = $argv[1] ?? '';
-    
     $raw_url = ltrim($raw_url, '/');
-    
     $url = $router->sanitize_url($raw_url);
-    
     if (empty($url)) {
         $url = '/';
     } else {
         $url = '/' . $url;
     }
-    
     $method = 'GET';
-    
 } else {
-    $url = $router->sanitize_url(str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['PHP_SELF']));
+    if (!empty($_SERVER['PATH_INFO'])) {
+        $url = $_SERVER['PATH_INFO'];
+    } else {
+        $request_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+        $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+        if ($script_dir !== '/' && $script_dir !== '.' && str_starts_with($request_path, $script_dir)) {
+            $request_path = substr($request_path, strlen($script_dir));
+        }
+        $script_name = basename($_SERVER['SCRIPT_NAME'] ?? '');
+        if ($script_name !== '' && str_starts_with($request_path, '/' . $script_name)) {
+            $request_path = substr($request_path, strlen('/' . $script_name));
+        }
+        $url = $request_path ?: '/';
+    }
+    $url = $router->sanitize_url($url);
     $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
 }
 

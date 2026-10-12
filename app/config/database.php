@@ -6,18 +6,15 @@ $env_value = static function ($name, $default = null) {
     return ($val === false || $val === null || $val === '') ? $default : $val;
 };
 
-
-defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
-
 $active_group = 'default';
 
 $database['main'] = array(
-    'hostname' => getenv('DB_HOST') ?: 'mysql-3cd37ed5-phoebeabante18.j.aivencloud.com',
-    'username' => getenv('DB_USER') ?: 'avnadmin',
-    'password' => getenv('DB_PASSWORD') ?: '',
-    'database' => getenv('DB_NAME') ?: 'defaultdb',
-    'port'     => (int)(getenv('DB_PORT') ?: 16717),
-    'driver'   => 'mysql',
+    'hostname' => $env_value('DB_HOST', 'mysql-3cd37ed5-phoebeabante18.j.aivencloud.com'),
+    'username' => $env_value('DB_USER', $env_value('DB_USERNAME', 'avnadmin')),
+    'password' => $env_value('DB_PASSWORD', ''),
+    'database' => $env_value('DB_NAME', $env_value('DB_DATABASE', 'defaultdb')),
+    'port'     => (int) $env_value('DB_PORT', 16717),
+    'driver'   => $env_value('DB_DRIVER', 'mysql'),
     'ssl_mode' => 'REQUIRED'
 );
 

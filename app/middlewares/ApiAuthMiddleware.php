@@ -6,6 +6,12 @@ class ApiAuthMiddleware
 {
     public function handle(Closure $next)
     {
+        // Handle preflight OPTIONS requests immediately
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(204);
+            exit;
+        }
+
         $lava = lava_instance();
         $lava->call->library('api');
         $lava->call->database();
